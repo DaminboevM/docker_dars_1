@@ -2,15 +2,15 @@ import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/commo
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy{
-    private logger = new Logger('database')
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+    private readonly logger = new Logger('Database')
 
     async onModuleInit() {
         try {
             await this.$connect()
-            this.logger.log('connect ')
-        } catch (error) {
-            this.logger.log(error.message)
+            this.logger.log('Connected succesfull')
+        } catch (err) {
+            this.logger.log(err.message)
             process.exit()
         }
     }
@@ -19,9 +19,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     async onModuleDestroy() {
         try {
             await this.$disconnect()
-            this.logger.log('disconnect ')
-        } catch (error) {
-            this.logger.log(error.message)
+            this.logger.log('Disconnected succesfull')
+        } catch (err) {
+            this.logger.log(err.message)
             process.exit()
         }
     }
